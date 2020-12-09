@@ -16,16 +16,16 @@ public class Credit {
     private int   jourPrélevement;
     private Double mensualite;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Client client;
 
-    public User getUser() {
-        return user;
+    public Client getClient() {
+        return client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClient(Client client) {
+        this.client = client;
     }
+
 
     public long getId() {
         return id;

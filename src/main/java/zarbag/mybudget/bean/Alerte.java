@@ -5,17 +5,24 @@ import javax.persistence.*;
 public class Alerte {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Long id;
+    private long id;
     private String nom;
     private String description;
     private Double seuilMensuel;
     private boolean isGlobal;
     @ManyToOne
-    @JoinColumn(name = "type_depense_id")
     private TypeDepense typeDepense;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     public long getId() {
         return id;
     }

@@ -7,27 +7,22 @@ import javax.persistence.*;
 
 public class Depense {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-
+//date picker
     private long id;
     private String libelle;
     private String description;
     @ManyToOne
-    @JoinColumn(name = "beneficiaire_id")
     private Beneficiaire beneficiaire;
     private Date dateDepense;
     @ManyToOne
-    @JoinColumn(name = "groupe_depense_id")
     private Groupe groupeDepense;
     @ManyToOne
-    @JoinColumn(name = "type_depense_id")
     private TypeDepense typeDepense;
     private Double valeurDepense;
     @ManyToOne
-    @JoinColumn(name = "produit_id")
     private Produit produit;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Client client;
     public long getId() {
         return id;
     }

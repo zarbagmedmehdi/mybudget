@@ -10,7 +10,6 @@ public class Produit {
     private String nom ;
     private String codeBarre;
     @ManyToOne
-    @JoinColumn(name = "type_produit_id")
     private TypeProduit typeProduit;
 
     public long getId() {

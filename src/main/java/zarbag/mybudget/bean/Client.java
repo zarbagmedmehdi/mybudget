@@ -14,10 +14,9 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 
-public class User implements Serializable {
+public class Client implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     private String nom;
     @NotBlank(message = "username is obligatory")
     private String username ;
@@ -27,14 +26,40 @@ public class User implements Serializable {
     private String email;
     private int nbTentifRest;
     private Boolean enabled;
+    private String token;
+    private String devise ;
 
-    public User() {
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public Client() {
 
     }
 
-    public User(String username, String password) {
+    public Client(String nom) {
+        this.nom = nom;
+    }
+
+    public Client(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
     }
 
     public String getEmail() {
@@ -93,14 +118,16 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
+        return "Client{" +
+                // "id=" + id +
                 ", nom='" + nom + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                //", username='" + username + '\'' +
+                //  ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", nbTentifRest=" + nbTentifRest +
                 ", enabled=" + enabled +
+              //  ", token='" + token + '\'' +
+                ", devise='" + devise + '\'' +
                 '}';
     }
 }

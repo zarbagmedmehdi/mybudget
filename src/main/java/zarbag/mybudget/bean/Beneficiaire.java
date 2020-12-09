@@ -1,22 +1,33 @@
 package zarbag.mybudget.bean;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
 @Entity
 
 public class Beneficiaire {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
 
-    Long id;
+    long id;
     String nom;
     String description;
+    @ManyToOne
+    @JsonIgnore
+    private Client client;
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

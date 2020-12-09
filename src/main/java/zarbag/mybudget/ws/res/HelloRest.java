@@ -1,80 +1,81 @@
 package zarbag.mybudget.ws.res;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import zarbag.mybudget.bean.AuthentificationResponse;
-import zarbag.mybudget.bean.User;
-import zarbag.mybudget.security.Util;
-import zarbag.mybudget.service.MyUserDetailsService;
-import zarbag.mybudget.service.UserService;
 
+import zarbag.mybudget.bean.Client;
+import zarbag.mybudget.service.ClientService;
+import zarbag.mybudget.z.bean.ResetPassword;
+
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+
+@RestController
+@RequestMapping("/client")
+@CrossOrigin(origins = "http://localhost:4200")
 public class HelloRest {
 
     @Autowired
-    UserService userService;
-   /* @RequestMapping({"/hello"})
-    public String hello(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        return "hello"+currentPrincipalName;
-
-
-    }
-
-    @PostMapping(value="/authenticate")
-    public ResponseEntity<?> createAuthentifcationToken(@RequestBody User user)throws Exception{
-        System.out.println("cc"+user);
-        String jwt=userService.login(user.getUsername(),user.getPassword());
-        return  ResponseEntity.ok(new AuthentificationResponse(jwt));
-    }
-    @PostMapping("/signup")
-    public int signup(@RequestBody User user) {
-        return userService.save(user);
-    }
+    ClientService clientService;
+    @Autowired
+    HttpServletRequest request;
 
     @GetMapping("/")
-    public List<User> findAll() {
-        return userService.findAll();
+    public List<Client> findAll() {
+        return clientService.findAll();
     }
+
+
+    @GetMapping("/token")
+    public Client findByToken( ) {
+        String token=request.getHeader(AUTHORIZATION);
+        token= StringUtils.removeStart(token, "Bearer").trim();
+        return clientService.findNameByToken(token);
+    }
+    @PostMapping("/profile")
+    public int updateProfile( @RequestBody Client user) {
+      return clientService.update(user);
+    }
+    @PostMapping("/password")
+    public int changePassword(@RequestBody ResetPassword rs) {
+        return clientService.changePassword(rs);
+    }
+
+
 
     @GetMapping("/connected")
-    public List<User> findConnected() {
-        return userService.FindConnected();
+    public List<Client> findConnected() {
+        return clientService.FindConnected();
     }
 
-    @GetMapping("/byusernameoremail/{username}/{email}")
-    public User findByEmailOrUsername(@PathVariable String username, @PathVariable String email) {
-        return userService.findByEmailOrUsername(username, email);
+    @GetMapping("/username-or-email/{username}/{email}")
+    public Client findByEmailOrUsername(@PathVariable String username, @PathVariable String email) {
+        return clientService.findByEmailOrUsername(username, email);
     }
 
-    @GetMapping("/byusername/{username}/")
-    public User findByUsername(@PathVariable String username) {
-        return userService.findByUsername(username);
+    @GetMapping("/username/{username}/")
+    public Client findByUsername(@PathVariable String username) {
+        return clientService.findByUsername(username);
     }
 
     @PostMapping("/signout")
-    public int signout(@RequestBody User user) {
-        return userService.signout(user.getUsername(), user.getPassword());
+    public int signout(@RequestBody Client user) {
+        return clientService.signout(user.getUsername(), user.getPassword());
     }
 
     @PutMapping("/disable/{username}")
     public int disableUser(@PathVariable String username) {
-        return userService.disableUser(username);
+        return clientService.disableUser(username);
     }
+
 
     @DeleteMapping("/delete/{username}/")
     public int delete(String userName) {
-        return userService.delete(userName);
+        return clientService.delete(userName);
     }
-*/
+
 }

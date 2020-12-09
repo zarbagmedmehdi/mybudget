@@ -16,19 +16,44 @@ public class Gain {
     private String donnateur;
     private Date dateGain;
     @ManyToOne
-    @JoinColumn(name = "groupe_gain_id")
     private Groupe groupeGain;
     private Double valeurGain;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Client client;
+    private int mois;
+    private int annee;
+    private int jour;
 
-    public User getUser() {
-        return user;
+    public int getMois() {
+        return mois;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMois(int mois) {
+        this.mois = mois;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
+    }
+
+    public int getJour() {
+        return jour;
+    }
+
+    public void setJour(int jour) {
+        this.jour = jour;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public long getId() {
